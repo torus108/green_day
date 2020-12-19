@@ -28,7 +28,7 @@ module GreenDay
     desc 'new [contest name]', 'create contest workspace and spec'
     def new(contest_name)
       contest = Contest.new(contest_name, AtcoderClient.new)
-      FileUtils.makedirs("#{contest_name}/spec")
+      FileUtils.makedirs("contest/#{contest_name}/spec")
 
       Parallel.each(contest.tasks) do |task|
         create_submit_file!(contest_name, task)
@@ -58,11 +58,11 @@ module GreenDay
     end
 
     def submit_file_path(contest_name, task)
-      "#{contest_name}/#{task.code}.rb"
+      "contest/#{contest_name}/#{task.code}.rb"
     end
 
     def spec_file_path(contest_name, task)
-      "#{contest_name}/spec/#{task.code}_spec.rb"
+      "contest/#{contest_name}/spec/#{task.code}_spec.rb"
     end
   end
 end
